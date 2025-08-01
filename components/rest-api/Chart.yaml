@@ -1,0 +1,5 @@
+apiVersion: v2
+appVersion: v1.0.0
+description: REST API for Data Delivery Service
+name: rest-api
+version: 1.0.0

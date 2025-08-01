@@ -1,0 +1,37 @@
+# Default values for rest-service.
+# This is a YAML-formatted file.
+# Declare va      basePath: /rest-api/apir templates.
+
+rest-api:
+  # nameOverride: api
+  config:
+    environment: development
+    api:
+      baseUrl: "https://dataspace4health.local"
+      basePath: "/rest-api"
+    oidcIssuer: "https://dataspace4health.local/iam/realms/ds4h"
+    oidcClientId: "rest-api-service"
+    oidcClientSecret: "RdKdFDNHVhO8cT1cv94fhJCQfxav8fTn"
+    oidcScope: "openid profile"
+    oidcRedirectUri: "https://dataspace4health.local/rest-api/callback"
+    oidcResponseType: "code"
+    oidcPostLogoutRedirectUri: "https://dataspace4health.local/rest-api"
+    nodeTlsRejectUnauthorized: 0
+    http:
+      host: ""
+      port: 3000
+      timeout:
+        idle: 120s
+        read: 10s
+        write: 10s
+  ingress:
+    enabled: true
+    hosts:
+      - paths:
+        - path: /rest-api
+          port: 3000
+          pathType: Prefix
+    tls:
+      - secretName: dataspace4health.local
+        hosts:
+          - dataspace4health.local
