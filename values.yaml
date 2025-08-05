@@ -1,7 +1,7 @@
 dps:
   # nameOverride: api
   config:
-    environment: development
+    environment: production
     api:
       baseUrl: "https://dataspace4health.local"
       basePath: "/data/api/v1"
