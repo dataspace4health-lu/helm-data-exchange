@@ -1,6 +1,6 @@
 apiVersion: v2
-name: rest-service
-description: A Helm chart for deploying the REST Data Delivery service.
+name: data-exchange
+description: A Helm chart for deploying the Data Exchange Component.
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
@@ -15,6 +15,6 @@ version: 1.0.0
 appVersion: "1.0.0"
 
 dependencies:
-  - name: rest-api
+  - name: dps
     version: 1.0.0
-    repository: "file://components/rest-api"
+    repository: "file://components/dps"

@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
     app.kubernetes.io/instance: {{ include "app.revision" . }}
-    app.kubernetes.io/part-of: rest-service
+    app.kubernetes.io/part-of: dps
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -94,7 +94,7 @@ spec:
 
         readinessProbe:
           httpGet:
-            path: {{ .Values.config.api.basePath | default "/rest-api" }}/health
+            path: {{ .Values.config.api.basePath | default "/data/api/v1" }}/health
             port: {{ .Values.config.http.port }}
           initialDelaySeconds: 15
           periodSeconds: 5
@@ -103,7 +103,7 @@ spec:
 
         livenessProbe:
           httpGet:
-            path: {{ .Values.config.api.basePath | default "/rest-api" }}/health
+            path: {{ .Values.config.api.basePath | default "/data/api/v1" }}/health
             port: {{ .Values.config.http.port }}
           initialDelaySeconds: 30
           periodSeconds: 10
