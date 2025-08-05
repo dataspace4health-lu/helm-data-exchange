@@ -6,7 +6,7 @@ dps:
       baseUrl: "https://dataspace4health.local"
       basePath: "/data/api/v1"
     oidcIssuer: "https://dataspace4health.local/iam/realms/ds4h"
-    oidcClientId: "data-provisioning-service"
+    oidcClientId: "data-provision-service"
     oidcClientSecret: "RdKdFDNHVhO8cT1cv94fhJCQfxav8fTn"
     oidcScope: "openid profile"
     oidcRedirectUri: "https://dataspace4health.local//data/api/v1/callback"
