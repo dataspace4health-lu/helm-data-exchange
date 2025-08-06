@@ -9,7 +9,7 @@ image:
   # repository: registry.gitlab.com/gaia-x/data-infrastructure-federation-services
   repository: ds4h-registry:5432
   # -- Image name
-  name: data-provision
+  name: data-provision-service
   # -- Image tag
   # Uses .Chart.AppVersion if empty
   tag: latest
