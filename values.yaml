@@ -12,6 +12,7 @@ dps:
     oidcRedirectUri: "https://dataspace4health.local/data/api/v1/callback"
     oidcResponseType: "code"
     oidcPostLogoutRedirectUri: "https://dataspace4health.local/data/api/v1"
+    oidcBearerRealm: "ds4h"
     nodeTlsRejectUnauthorized: 0
     http:
       host: ""

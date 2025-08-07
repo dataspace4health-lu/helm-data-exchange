@@ -91,6 +91,7 @@ config:
   oidcRedirectUri: ""
   oidcResponseType: "code"
   oidcPostLogoutRedirectUri: ""
+  oidcBearerRealm: "ds4h"
 
   # -- HTTP configuration
   http:

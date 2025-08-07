@@ -14,6 +14,7 @@ This component provides the REST API service for data provisioning.
 | `service.port` | Service port | `3000` |
 | `config.environment` | Environment | `production` |
 | `config.api.basePath` | API base path | `/data/api/v1` |
+| `config.oidcBearerRealm` | Bearer realm for WWW-Authenticate header | `ds4h` |
 
 ## Health Checks
 
