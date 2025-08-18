@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ template "app.chartname" . }}"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    app.kubernetes.io/instance: {{ include "app.revision" . }}
+    app.kubernetes.io/part-of: dps
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      {{- include "app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "app.labels" . | nindent 8 }}
+      annotations:
+        {{- include "app.metricsAnnotations" . | nindent 8 }}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
+    spec:
+      securityContext:
+{{- include "app.securitycontext" . | nindent 8 }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecrets }}
+      {{- end }}
+      containers:
+      - name: {{ template "app.chartname" . }}
+        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        {{- if .Values.image.command }}
+        command: 
+          {{- toYaml .Values.image.command | nindent 8 }}
+        {{- end }}
+        {{- if .Values.image.args }}
+        args: 
+          {{- toYaml .Values.image.args | nindent 8 }}
+        {{- end }}
+        
+        
+      {{- if .Values.useSecretRef }}
+        envFrom:
+          - secretRef:
+              name: {{ .Values.secretRefName }}
+      {{- else if .Values.useConfigMap }}
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.configMapName }}
+      {{- else }}
+        env:
+          # general
+          - name: NODE_ENV
+            value: {{ .Values.config.environment | quote }}
+          - name: PORT
+            value: {{ .Values.config.http.port | quote }}
+          - name: BASE_PATH
+            value: {{ .Values.config.api.basePath | quote }}
+          - name: BASE_URL
+            value: {{ .Values.config.api.baseUrl | quote }}
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: {{ .Values.config.nodeTlsRejectUnauthorized | quote }}
+          - name: OIDC_ISSUER
+            value: {{ .Values.config.oidcIssuer | quote }}
+          - name: OIDC_CLIENT_ID
+            value: {{ .Values.config.oidcClientId | quote }}
+          - name: OIDC_CLIENT_SECRET
+            value: {{ .Values.config.oidcClientSecret | quote }}
+          - name: OIDC_SCOPE
+            value: {{ .Values.config.oidcScope | quote }}
+          - name: OIDC_REDIRECT_URI
+            value: {{ .Values.config.oidcRedirectUri | quote }}
+          - name: OIDC_RESPONSE_TYPE
+            value: {{ .Values.config.oidcResponseType | quote }}
+          - name: OIDC_POST_LOGOUT_REDIRECT_URI
+            value: {{ .Values.config.oidcPostLogoutRedirectUri | quote }}
+          - name: OIDC_BEARER_REALM
+            value: {{ .Values.config.oidcBearerRealm | quote }}
+      {{- end }}
+
+        ports:
+        {{- if .Values.metrics.enabled }}
+        - name: monitoring
+          containerPort: {{ .Values.metrics.port }}
+        {{- end }}
+        - name: http
+          containerPort: {{ .Values.config.http.port }}
+
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.config.api.basePath | default "/data/api/v1" }}/health
+            port: {{ .Values.config.http.port }}
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.config.api.basePath | default "/data/api/v1" }}/health
+            port: {{ .Values.config.http.port }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
