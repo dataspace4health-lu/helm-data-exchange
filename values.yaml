@@ -1,5 +1,5 @@
 dps:
-  # nameOverride: api
+  nameOverride: dps
   config:
     environment: production
     api:
