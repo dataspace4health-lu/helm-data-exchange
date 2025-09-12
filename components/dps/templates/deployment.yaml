@@ -84,6 +84,10 @@ spec:
             value: {{ .Values.config.oidcPostLogoutRedirectUri | quote }}
           - name: OIDC_BEARER_REALM
             value: {{ .Values.config.oidcBearerRealm | quote }}
+          - name: OIDC_LOGIN_URL
+            value: {{ .Values.config.oidcLoginUrl | quote }}
+          - name: OIDC_IDP_ALIAS
+            value: {{ .Values.config.oidcIdpAlias | quote }}
       {{- end }}
 
         ports:
