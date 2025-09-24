@@ -6,6 +6,8 @@ dps:
       baseUrl: "https://dataspace4health.local"
       basePath: "/data/api/v1"
     oidcIssuer: "https://dataspace4health.local/iam/realms/ds4h"
+    oidcLoginUrl: https://dataspace4health.local/iam/realms/ds4h/protocol/openid-connect/auth
+    oidcIdpAlias: iat-idpkit
     oidcClientId: "data-provision-service"
     oidcClientSecret: "RdKdFDNHVhO8cT1cv94fhJCQfxav8fTn"
     oidcScope: "openid profile"
@@ -13,6 +15,7 @@ dps:
     oidcResponseType: "code"
     oidcPostLogoutRedirectUri: "https://dataspace4health.local/data/api/v1"
     oidcBearerRealm: "ds4h"
+    
     nodeTlsRejectUnauthorized: 0
     http:
       host: ""
