@@ -9,7 +9,7 @@ dps:
     oidcLoginUrl: https://dataspace4health.local/iam/realms/ds4h/protocol/openid-connect/auth
     oidcIdpAlias: iat-idpkit
     oidcClientId: "data-provision-service"
-    oidcClientSecret: "RdKdFDNHVhO8cT1cv94fhJCQfxav8fTn"
+    oidcClientSecret: "ALcbdI2VfxMa0hYVg2yo28hNSYGUzEnY"
     oidcScope: "openid profile"
     oidcRedirectUri: "https://dataspace4health.local/data/api/v1/callback"
     oidcResponseType: "code"
