@@ -5,7 +5,7 @@ dps:
     api:
       baseUrl: "https://dataspace4health.local"
       basePath: "/data/api/v1"
-      baseFilePath: '/data'
+      baseFilePath: '/app/data'
     oidcIssuer: "https://dataspace4health.local/iam/realms/ds4h"
     oidcLoginUrl: https://dataspace4health.local/iam/realms/ds4h/protocol/openid-connect/auth
     oidcIdpAlias: iat-idpkit

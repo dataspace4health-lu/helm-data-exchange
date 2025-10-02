@@ -82,7 +82,7 @@ config:
   api:
     baseUrl: "https://dataspace4health.local"
     basePath: '/data/api/v1'
-    baseFilePath: '/data'
+    baseFilePath: '/app/data'
   
   # -- OIDC configuration
   oidcIssuer: ""
